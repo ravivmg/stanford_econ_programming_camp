@@ -1,0 +1,337 @@
+\documentclass[12pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{color,soul}
+\usepackage{graphicx} 
+\usepackage{listings}
+\usepackage[justification=centering]{caption}
+\usepackage{caption}
+\captionsetup{font=footnotesize,justification=justified,aboveskip=0em}
+\usepackage{xcolor}
+
+
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  keepspaces=true,
+  backgroundcolor = \color{lightgray}
+}
+
+
+\title{Servers and Softwares}
+\author{Eran Hoffmann and Raviv Murciano-Goroff}
+\date{\today}
+
+ 
+\begin{document}
+\maketitle
+
+Programming camp and most of the programming work that you will need to do in the first year classes will utilize Stata or Matlab.
+
+You do not need to purchase Stata or Matlab. Both of these programs are available on the Stanford servers, known as Farmshare/Corn, as well as on most library computers. Some people find it more convenient to have these programs on their own laptop. If you choose to purchase a copy of these programs for your own machine, please look at the Stanford IT service's webpage regarding discounted pricing that the university has negotiated:
+
+\begin{itemize}
+  \item \url{https://itservices.stanford.edu/service/softwarelic/matlab}
+  \item \url{https://itservices.stanford.edu/service/softwarelic/stata}
+\end{itemize}
+
+
+In this document, we are going to walk you through getting set up with using the Stata and Matlab on the Stanford servers. Regardless of whether or not you choose to buy these programs, if you do applied work it is likely that at some point you will want to use the extra power and space that is available on the servers. 
+
+
+The document has the following sections:
+\begin{itemize}
+  \item Procedure for connecting to the servers from a Windows Computer.
+  \item Procedure for connecting to the servers from a Windows Computer.
+  \item Using Stata and Matlab on the servers.
+  \item Uploading files to the servers.
+  \item *Optional* Server Features.
+\end{itemize}
+
+
+
+\section{Procedure for connecting to the servers from a Windows Computer}
+
+
+\subsection{Step \#1: Install MobaXterm on your PC}
+
+Installing MobaXterm will give you access to the latest versions of Stata and MATLAB as well as access to your own storage on Stanfords AFS. 
+
+Go to the website:
+
+\url{http://mobaxterm.mobatek.net/download-home-edition.html}
+
+Chose the \lq\lq{}Installer edition\rq\rq{} and follow through the installation process. Eventually you should be able to run it. 
+
+
+\subsection{Step \#2: Connect to Stanford's Servers}
+
+Open MobaXterm, click \lq\lq{}Session\rq\rq{} icon on the top left. Then, click SSH. The server name is 
+
+\begin{lstlisting}
+<yourSUNetID>@corn.stanford.edu
+\end{lstlisting}
+ 
+where yourSUNetID stands for your personal username. The program then asks you for your username and password, and the two-step authentication password that you should setup at:
+
+\url{https://itservices.stanford.edu/service/webauth/twostep}
+
+
+
+
+
+
+
+
+\section{Procedure for connecting to the servers from a Mac Computer}
+
+\subsection{Step \#1: Install Xquartz on your Mac}
+
+Xquartz is a program that allows you to interact with Stata and Matlab visually as if the programs were installed on your own computer.
+
+Download and install Xquartz from here:
+
+\url{http://xquartz.macosforge.org/landing/}
+
+You may need to restart after it is installed.
+
+
+\subsection{Step \#2: Connect to Stanford's Servers}
+
+Open the program on your computer called Terminal. It is located in Applications $\rightarrow$ Utilities $\rightarrow$ Terminal. 
+
+When you open the application Terminal, you should see an old-school, black-and-white window and command prompt (like the Matrix). Type the following into the terminal and hit enter:
+
+\begin{lstlisting}
+  ssh -X <username>@corn.stanford.edu
+\end{lstlisting}
+
+where you replace $<username>$ with you Stanford SUNet ID username.
+
+Note: Terminal might ask if you are okay with adding a server to a list of known hosts. Say yes.
+
+The Matrix terminal will then respond by asking for a password. Type your Stanford SUNet password. This is the same password that you use for getting onto Stanford's Axess website.
+
+Lastly, the Terminal will ask about doing 2-step authentication. Use whichever method you like the most: you can install the Duo app on your iPhone and get a notification on your phone or get a text message and enter the code. Whatever you use to get onto Axess should also work here.
+
+Once you have finished with 2-step authentication, you should be inside the server. You should see something that says ``Farmshare.''
+
+The whole process will look like this:
+
+\includegraphics[width=\linewidth]{login.pdf}
+
+
+
+
+
+
+
+\section{Using Stata and Matlab on the servers}
+
+The Farmshare servers have lots of scientific software for you to use as well as multiple versions of the same software in case you have code that is not forward-compatible.
+
+The way that Farmshare knows which version of the programs you want to use is by having you `load' the program version. 
+
+To see all of the software available:
+
+\begin{lstlisting}
+  module avail
+\end{lstlisting}
+
+This returns a listing with the names of the software available, such as:
+
+\begin{itemize}
+  \item matlab/r2013b
+  \item matlab/r2014a
+  \item matlab/r2014b
+\end{itemize}
+
+To load a program, just type 
+
+\begin{lstlisting}
+module load <software name>	
+\end{lstlisting}
+
+
+After loading a program, you can go ahead and use it by typing its name and hitting enter. 
+
+The most common ones you will use:
+\bigskip
+
+
+Stata (non-graphical version):
+\begin{lstlisting}
+  module load statase/14
+  stata
+\end{lstlisting}
+
+
+Stata (graphical version):
+\begin{lstlisting}
+  module load statase/14
+  xstata
+\end{lstlisting}
+
+Matlab:
+\begin{lstlisting}
+  module load matlab/r2015a
+  matlab
+\end{lstlisting}
+
+
+For those using a Mac, when you load and then type $xstata$ or $matlab$, Xquartz will open with the graphical version of those programs. Do NOT close Terminal or it will also close the running program.
+
+
+
+
+
+\section{Uploading files to the servers}
+
+There a few ways to move stuff back and forth to the server.
+
+For PC users, you can use the left panel of MobaXterm to browse around, create folders and drag and drop data from your PC. Please create a separate folder for this class within your documents folder.
+
+For Mac users, download a ``SFTP client'' for Mac. The most commonly used ones are FileZilla, Cyberduck, or Fetch (free with an academic email). Any one will do. After installing that client, open the program and create a new connection with the following settings:
+
+\begin{lstlisting}
+  server: corn.stanford.edu
+  username: <SUNet ID>
+  port: 22
+  Protocol: SFTP or SSH/SFTP
+\end{lstlisting}
+
+On Cyberduck, you will also want to go to Preferences, then the Transfers tab, and switch ``Transfer Files'' option to ``Use browser connection.''
+
+Connecting with any of these clients will show you your server storage in a similar manner to how Finder shows you your local storage. Just drag and drop stuff back and forth to the server.
+
+
+
+\section{*Optional* Features of the Servers}
+
+
+\subsubsection{Nickname the Servers}
+
+You can nickname the servers, so that instead of having to type: ssh <username>@corn.stanford.edu, you can type ``ssh corn''
+
+On a Mac, open your Terminal. Type the following:
+
+\begin{lstlisting}
+	mkdir ~/.ssh
+	touch ~/.ssh/config
+	open ~/.ssh/config
+\end{lstlisting}
+
+This will open and allow you to edit the file .ssh/config.
+
+Copy and paste the following into the text editor and save:
+
+\begin{lstlisting}
+Host cardinal cardinal? corn corn?? barley barley??
+    HostName %h.stanford.edu
+\end{lstlisting}
+
+
+
+\subsubsection{Skip 2-Factor Authentication}
+
+You can avoid having to do the 2-factory authentication thing every time that you log onto the server.
+
+On a Mac, open your Terminal. Type the following:
+
+\begin{lstlisting}
+	open ~/.ssh/config
+\end{lstlisting}
+
+Copy and paste this into the editor and save.
+
+\begin{lstlisting}
+Host corn corn?? corn.stanford.edu corn??.stanford.edu
+ ControlMaster auto
+ ControlPath ~/.ssh/%r@%h:%p
+ ControlPersist yes
+\end{lstlisting}
+
+While you are connected, opening a second connection to Farmshare/Corn will multiplex on the first connection.
+
+\subsubsection{Skip Typing Your Password}
+
+You can login using Kerberos.
+
+Start by downloading the Kerberos file from Stanford:
+
+\url{http://www.stanford.edu/dept/its/support/kerberos/dist/krb5.conf}
+
+On a Mac, open your Terminal. Type the following:
+
+\begin{lstlisting}                   
+	sudo mv ~/Downloads/krb5.conf /etc/krb5.conf
+	open ~/.ssh/config
+\end{lstlisting}
+
+Copy and paste this into the editor and save.
+
+\begin{lstlisting}
+Host cardinal cardinal? cardinal*.stanford.edu corn corn?? corn*.stanford.edu barley barley?? barley*.stanford.edu
+    GSSAPIKeyExchange yes
+    GSSAPIAuthentication yes
+    GSSAPIDelegateCredentials yes
+    StrictHostKeyChecking no
+\end{lstlisting}
+
+
+Now you can type the following once a day:
+
+\begin{lstlisting}
+kinit
+\end{lstlisting}
+
+and enter your password and not have to type your password for the rest of the day when connecting to Farmshare.
+
+
+\subsubsection{Skip Loading Frequently Used Software}
+
+Do you always load Matlab when logging onto Corn?
+
+Once inside of Corn, type the following:
+
+
+\begin{lstlisting}
+echo "module load matlab/r2015a" >> ~/.login
+\end{lstlisting}
+
+Boom. Next time that you log into Corn, you won't need to load Matlab. It will be done for you.
+
+\subsubsection{Bigger Data}
+
+The quota on your home directory on Farmshare is 5gb. Almost anyone doing applied microeconomics is going to need more space to store their data. You have two options.
+
+First, Farmshare has a directory where you can store a larger amount of data. When you log onto any Corn server, a directory is created at the path \url{/farmshare/user_data/<username>}. This directory is shared space with no explicit quota (but the admin people will send you a warning if you go way over ~100gb). Note that this directory is NOT backed up. Because of this, it is not recommended to use this directory for long-term storage of your data.
+
+Second, Keynes cluster. This is the Econ Department's own cluster. Talk to Mike about it if you want or need to use this space.
+
+\subsubsection{Installing Your Own Libraries or Packages}
+
+You don't need to bug the admins to install your own versions of stuff on Farmshare.
+
+For python:
+
+\begin{lstlisting}
+	python setup.py install --prefix==$HOME
+\end{lstlisting}
+
+
+For c programs:
+
+\begin{lstlisting}
+	./congifigure --prefix=$HOME
+\end{lstlisting}
+	
+For Stata:
+
+\begin{lstlisting}
+	ssc install blah
+\end{lstlisting}
+
+
+\end{document}
