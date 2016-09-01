@@ -1,4 +1,4 @@
 auto.txt
 auto.dta
 *.dta
-
+*.DS_store
